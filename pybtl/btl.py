@@ -22,6 +22,28 @@ class Btl:
             else:
                 self._datalines.append(clean_line)
 
+    def return_starstar_dict(self):
+        res = dict()
+        for item in self._starstarlines:
+            key, value = item.split(":",1)
+            res[key.replace("*", "").strip()] = value.strip()
+        return res
+
     def print_datalines(self):
         for line in self._datalines:
+            print(line)
+    
+    def print_starlines(self):
+        for line in self._starlines:
+            print(line)
+
+    def print_starstarlines(self):
+        for line in self._starstarlines:
+            print(line)
+
+    def return_starstarlines(self):
+        return self._starstarlines
+    
+    def print_hashlines(self):
+        for line in self._hashlines:
             print(line)
