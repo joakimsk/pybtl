@@ -1,6 +1,6 @@
-# Class for Btl file format
+# Class for generic Seabird file
 
-class Btl:
+class SeabirdFile:
     def __init__(self, filename):
         self._filename = filename
         self._starstarlines = []
@@ -22,11 +22,37 @@ class Btl:
             else:
                 self._datalines.append(clean_line)
 
-    def return_starstar_dict(self):
+    def return_star_dict(self, delim="="):
+        res = dict()
+        for item in self._starlines:
+            try:
+                key, value = item.split(delim,1)
+                res[key.replace("*", "").strip()] = value.strip()
+            except ValueError:
+                #print("return_star_dict skipping line, no delim found", item)
+                continue
+        return res
+
+    def return_starstar_dict(self, delim=":"):
         res = dict()
         for item in self._starstarlines:
-            key, value = item.split(":",1)
-            res[key.replace("*", "").strip()] = value.strip()
+            try:
+                key, value = item.split(delim,1)
+                res[key.replace("*", "").strip()] = value.strip()
+            except ValueError:
+                #print("return_starstar_dict skipping line, no delim found")
+                continue
+        return res
+
+    def return_hash_dict(self, delim="="):
+        res = dict()
+        for item in self._hashlines:
+            try:
+                key, value = item.split(delim,1)
+                res[key.replace("#", "").strip()] = value.strip()
+            except ValueError:
+                #print("return_star_dict skipping line, no delim found", item)
+                continue
         return res
 
     def print_datalines(self):
