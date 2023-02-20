@@ -1,5 +1,7 @@
 # Class for generic Seabird file
 
+import xml.dom.minidom
+
 class SeabirdFile:
     def __init__(self, filename):
         self._filename = filename
@@ -21,6 +23,17 @@ class SeabirdFile:
                 self._hashlines.append(clean_line)
             else:
                 self._datalines.append(clean_line)
+
+    def return_hash_xml(self):
+        my_xml_lines = ""
+        for item in self._hashlines:
+            if item.startswith("#"):
+                clean_line = item.replace("#", "").strip()
+                if clean_line.startswith("<"):
+                    my_xml_lines += clean_line + "\n"
+        
+        dom = xml.dom.minidom.parseString(my_xml_lines)
+        return dom
 
     def return_star_dict(self, delim="="):
         res = dict()
@@ -55,9 +68,8 @@ class SeabirdFile:
                 continue
         return res
 
-    def print_datalines(self):
-        for line in self._datalines:
-            print(line)
+    def return_datalines(self):
+        return self._datalines
     
     def print_starlines(self):
         for line in self._starlines:

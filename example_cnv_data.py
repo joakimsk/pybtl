@@ -16,9 +16,8 @@ def main():
     for column in cnvfile.column_header_list.column_headers:
         print(column)
     #print(cnvfile.hash_header)
-   # print(cnvfile.hash_name_dict)
-   # print(cnvfile.hash_span_dict)
-
+    #print(cnvfile.hash_name_dict)
+    #print(cnvfile.hash_span_dict)
     #print(cnvfile.sensor_list)
 
 if __name__ == '__main__':
